@@ -1,4 +1,4 @@
-export const CATEGORIAS = [
+export const CATEGORIAS_VALIDAS = [
   "Salud",
   "Ejercicio",
   "Alimentación",
@@ -8,3 +8,5 @@ export const CATEGORIAS = [
   "Productividad",
   "Otro",
 ];
+
+export const CATEGORIAS = CATEGORIAS_VALIDAS;

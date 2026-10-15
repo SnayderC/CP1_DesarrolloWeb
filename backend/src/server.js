@@ -1,14 +1,28 @@
 import express from "express";
 import cors from "cors";
-import registrosRouter from "./routes/registros.js"
+import registrosRouter from "./routes/registros.js";
+
 // Configuración desde variables de entorno (con valores por defecto para desarrollo)
 const PORT = process.env.PORT || 3001;
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
+const FRONTEND_ORIGINS = (process.env.FRONTEND_ORIGIN || "http://localhost:5173,http://localhost:5174")
+  .split(",")
+  .map((valor) => valor.trim())
+  .filter(Boolean);
 
 const app = express();
 
-// Solo el frontend configurado puede llamar a la API desde el navegador
-app.use(cors({ origin: FRONTEND_ORIGIN }));
+// Acepta los orígenes del frontend en desarrollo y evita bloqueos por CORS
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || FRONTEND_ORIGINS.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error("Origen no permitido por CORS"));
+    },
+  })
+);
 
 // Convierte el body JSON de las peticiones en req.body
 app.use(express.json());

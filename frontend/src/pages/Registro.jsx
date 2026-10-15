@@ -1,3 +1,10 @@
+import FormularioHabito from "../components/FormularioHabito";
+
 export default function Registro() {
-  return <h1>Registro</h1>;
+  return (
+    <section className="pagina-registro">
+      <h2>Registrar nuevo hábito</h2>
+      <FormularioHabito />
+    </section>
+  );
 }

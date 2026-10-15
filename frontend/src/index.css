@@ -147,26 +147,141 @@ a { color: var(--primario-700); }
   margin-top: 1.25rem;
 }
 .tarjeta {
-  background: var(--superficie);
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9ff 100%);
   border: 1px solid var(--borde);
-  border-radius: var(--radio);
+  border-radius: 20px;
   padding: 1.25rem;
-  box-shadow: var(--sombra);
-  transition: box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 14px 30px rgba(79, 70, 229, 0.06);
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
 }
-.tarjeta:hover { box-shadow: var(--sombra-fuerte); transform: translateY(-2px); }
+.tarjeta:hover { box-shadow: 0 18px 36px rgba(79, 70, 229, 0.1); transform: translateY(-2px); border-color: rgba(79, 70, 229, 0.15); }
 .tarjeta__cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; }
 .tarjeta h3 { margin: 0; font-size: 1.1rem; }
 .tarjeta__meta { margin: 0.35rem 0 0.75rem; font-size: 0.88rem; color: var(--texto-suave); }
-.tarjeta p:last-child { margin: 0; }
+.tarjeta p:last-child { margin: 0; color: var(--texto); }
 .etiqueta {
   padding: 0.2rem 0.7rem;
   background: var(--primario-100);
   color: var(--primario-700);
   border-radius: 999px;
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
+}
+
+/* ---------- Registro ---------- */
+.pagina-registro {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.pagina-registro h2 {
+  margin-bottom: 1.25rem;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+.formulario-habito {
+  display: grid;
+  gap: 1.25rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9ff 100%);
+  border: 1px solid var(--borde);
+  border-radius: 24px;
+  padding: clamp(1rem, 3vw, 2rem);
+  box-shadow: 0 18px 45px rgba(79, 70, 229, 0.08);
+}
+
+.formulario-habito > div {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.formulario-habito label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primario-900);
+}
+
+.formulario-habito input,
+.formulario-habito select,
+.formulario-habito textarea {
+  width: 100%;
+  border: 1.5px solid #dfe5f5;
+  border-radius: 14px;
+  background: #f9faff;
+  color: var(--texto);
+  padding: 0.9rem 1rem;
+  font: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.formulario-habito input:focus,
+.formulario-habito select:focus,
+.formulario-habito textarea:focus {
+  outline: none;
+  border-color: var(--primario-600);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+}
+
+.formulario-habito textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.formulario-habito small {
+  color: var(--texto-suave);
+  font-size: 0.8rem;
+  margin-top: -0.2rem;
+}
+
+.formulario-habito .error {
+  color: var(--error);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.formulario-habito button[type="submit"] {
+  margin-top: 0.5rem;
+  width: 100%;
+  background: linear-gradient(135deg, var(--primario-700), var(--primario-600));
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 0.95rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 12px 22px rgba(79, 70, 229, 0.18);
+}
+
+.formulario-habito button[type="submit"]:hover {
+  background: linear-gradient(135deg, var(--primario-900), var(--primario-700));
+}
+
+.formulario-habito button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ---------- Lista y estados ---------- */
+section h1 {
+  margin-bottom: 1rem;
+}
+
+.mensaje {
+  display: grid;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.mensaje a {
+  color: var(--primario-700);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mensaje a:hover {
+  text-decoration: underline;
 }
 
 /* ---------- Responsive ---------- */
@@ -177,4 +292,7 @@ a { color: var(--primario-700); }
   .contenido { padding: 1.25rem 1rem 2rem; }
   .grid { grid-template-columns: 1fr; }
   .inicio__acciones .boton { width: 100%; }
+  .formulario-habito { padding: 1rem; border-radius: 18px; }
+  .tarjeta { padding: 1rem; }
+  .tarjeta__cabecera { flex-direction: column; align-items: flex-start; }
 }
