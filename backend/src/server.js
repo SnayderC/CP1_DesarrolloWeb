@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-
+import registrosRouter from "./routes/registros.js"
 // Configuración desde variables de entorno (con valores por defecto para desarrollo)
 const PORT = process.env.PORT || 3001;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
@@ -17,8 +17,8 @@ app.use(express.json());
 app.get("/salud", (req, res) => {
   res.json({ ok: true });
 });
-
-// Aquí se conectarán las rutas de registros (Bryan):
+;
+app.use("/registros", registrosRouter);
 // import registrosRouter from "./routes/registros.js";
 // app.use("/registros", registrosRouter);
 

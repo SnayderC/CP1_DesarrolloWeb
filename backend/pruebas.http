@@ -1,0 +1,115 @@
+@baseUrl = http://localhost:3001
+
+### 1. GET: consultar lista vacía
+# Ejecutar primero, cuando habitos.json no tenga registros.
+GET {{baseUrl}}/registros
+
+### 2. POST: crear hábito válido (esperado: 201)
+POST {{baseUrl}}/registros
+Content-Type: application/json
+
+{
+  "nombre": "ivis",
+  "email": "ivis@example.com",
+  "habito": "comer frutas",
+  "descripcion": "comer frutas todos los dias",
+  "fecha": "2026-10-13",
+  "categoria": "salud"
+}
+
+### 3. POST: falta el nombre (esperado: 400)
+POST {{baseUrl}}/registros
+Content-Type: application/json
+
+{
+  "email": "ivis@example.com",
+  "habito": "Leer libros",
+  "descripcion": "Leer durante veinte minutos todos los dias",
+  "fecha": "2026-10-15",
+  "categoria": "Estudio"
+}
+
+### 4. POST: email inválido (esperado: 400)
+POST {{baseUrl}}/registros
+Content-Type: application/json
+
+{
+  "nombre": "Brayan",
+  "email": "correo-invalido",
+  "habito": "Leer libros",
+  "descripcion": "Leer durante veinte minutos todos los dias",
+  "fecha": "2026-10-15",
+  "categoria": "Estudio"
+}
+
+### 5. POST: fecha futura (esperado: 400)
+POST {{baseUrl}}/registros
+Content-Type: application/json
+
+{
+  "nombre": "Brayan",
+  "email": "brayan@example.com",
+  "habito": "Leer libros",
+  "descripcion": "Leer durante veinte minutos todos los dias",
+  "fecha": "2099-01-01",
+  "categoria": "Estudio"
+}
+
+### 6. POST: fecha inexistente (esperado: 400)
+POST {{baseUrl}}/registros
+Content-Type: application/json
+
+{
+  "nombre": "Brayan",
+  "email": "brayan@example.com",
+  "habito": "Leer libros",
+  "descripcion": "Leer durante veinte minutos todos los dias",
+  "fecha": "2026-02-30",
+  "categoria": "Estudio"
+}
+
+### 7. POST: categoría no permitida (esperado: 400)
+POST {{baseUrl}}/registros
+Content-Type: application/json
+
+{
+  "nombre": "Brayan",
+  "email": "brayan@example.com",
+  "habito": "Leer libros",
+  "descripcion": "Leer durante veinte minutos todos los dias",
+  "fecha": "2026-10-15",
+  "categoria": "CategoriaInventada"
+}
+
+### 8. POST: body que no es JSON válido (esperado: 400)
+POST {{baseUrl}}/registros
+Content-Type: application/json
+
+{ esto no es JSON }
+
+### 9. POST: intentar enviar un ID propio (esperado: 201)
+POST {{baseUrl}}/registros
+Content-Type: application/json
+
+{
+  "id": "mi-id-propio",
+  "nombre": "Brayan",
+  "email": "brayan@example.com",
+  "habito": "Leer libros",
+  "descripcion": "Leer durante veinte minutos todos los dias",
+  "fecha": "2026-10-15",
+  "categoria": "Estudio"
+}
+{
+  "id": "mi-id-propio",
+  "nombre": "ivis",
+  "email": "ivis@example.com",
+  "habito": "comer frutas",
+  "descripcion": "comer frutas todos los dias",
+  "fecha": "2026-10-15",
+  "categoria": "Salud"
+}
+
+### 10. GET: verificar registros guardados
+GET {{baseUrl}}/registros
+
