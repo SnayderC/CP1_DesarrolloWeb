@@ -8,22 +8,35 @@ export default function Lista() {
   const [habitos, setHabitos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
-
-  async function cargar() {
-    setCargando(true);
-    setError(null);
-    try {
-      setHabitos(await obtenerHabitos());
-    } catch {
-      setError("No se pudieron cargar los hábitos.");
-    } finally {
-      setCargando(false);
-    }
-  }
+  // Cada vez que cambia, el efecto vuelve a pedir los hábitos
+  const [intento, setIntento] = useState(0);
 
   useEffect(() => {
-    cargar();
-  }, []);
+    // Evita actualizar el estado si el usuario ya salió de la página
+    let activo = true;
+
+    obtenerHabitos()
+      .then((datos) => {
+        if (activo) setHabitos(datos);
+      })
+      .catch(() => {
+        if (activo) setError("No se pudieron cargar los hábitos.");
+      })
+      .finally(() => {
+        if (activo) setCargando(false);
+      });
+
+    return () => {
+      activo = false;
+    };
+  }, [intento]);
+
+  // Al reintentar se vuelve a mostrar "Cargando..." y se repite la petición
+  function reintentar() {
+    setCargando(true);
+    setError(null);
+    setIntento((n) => n + 1);
+  }
 
   if (cargando) return <Mensaje tipo="info" texto="Cargando hábitos..." />;
 
@@ -31,7 +44,7 @@ export default function Lista() {
     return (
       <Mensaje tipo="error" texto={error}>
         {" "}
-        <button className="boton" onClick={cargar}>Reintentar</button>
+        <button className="boton" onClick={reintentar}>Reintentar</button>
       </Mensaje>
     );
   }

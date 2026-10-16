@@ -2,27 +2,19 @@ import express from "express";
 import cors from "cors";
 import registrosRouter from "./routes/registros.js";
 
-// Configuración desde variables de entorno (con valores por defecto para desarrollo)
+// Configuración desde variables de entorno (con valores por defecto para desarrollo).
+// FRONTEND_ORIGIN acepta uno o varios orígenes separados por comas.
 const PORT = process.env.PORT || 3001;
-const FRONTEND_ORIGINS = (process.env.FRONTEND_ORIGIN || "http://localhost:5173,http://localhost:5174")
+const FRONTEND_ORIGINS = (process.env.FRONTEND_ORIGIN || "http://localhost:5173")
   .split(",")
   .map((valor) => valor.trim())
   .filter(Boolean);
 
 const app = express();
 
-// Acepta los orígenes del frontend en desarrollo y evita bloqueos por CORS
-app.use(
-  cors({
-    origin(origin, callback) {
-      if (!origin || FRONTEND_ORIGINS.includes(origin)) {
-        callback(null, true);
-        return;
-      }
-      callback(new Error("Origen no permitido por CORS"));
-    },
-  })
-);
+// Solo los orígenes permitidos reciben la cabecera CORS; a los demás
+// el navegador les bloquea la respuesta (sin provocar un error 500)
+app.use(cors({ origin: FRONTEND_ORIGINS }));
 
 // Convierte el body JSON de las peticiones en req.body
 app.use(express.json());
@@ -31,10 +23,9 @@ app.use(express.json());
 app.get("/salud", (req, res) => {
   res.json({ ok: true });
 });
-;
+
+// Rutas de los registros de hábitos
 app.use("/registros", registrosRouter);
-// import registrosRouter from "./routes/registros.js";
-// app.use("/registros", registrosRouter);
 
 // Cualquier ruta que no exista
 app.use((req, res) => {

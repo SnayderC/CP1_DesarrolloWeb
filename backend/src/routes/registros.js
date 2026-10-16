@@ -28,7 +28,7 @@ router.post("/", async (req, res, next) => {
 
     if (Object.keys(errores).length > 0) {
       return res.status(400).json({
-        error: "Los datos enviados no son válidos.",
+        error: "Datos inválidos",
         detalles: errores,
       });
     }
