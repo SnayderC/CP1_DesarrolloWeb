@@ -14,7 +14,7 @@ Content-Type: application/json
   "habito": "comer frutas",
   "descripcion": "comer frutas todos los dias",
   "fecha": "2026-10-13",
-  "categoria": "salud"
+  "categoria": "Salud"
 }
 
 ### 3. POST: falta el nombre (esperado: 400)
