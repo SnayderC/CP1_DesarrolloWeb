@@ -62,12 +62,13 @@ export default function FormularioHabito() {
     <form onSubmit={manejarEnvio} className="formulario-habito" noValidate>
       {mensajeGlobal && <Mensaje tipo={mensajeGlobal.tipo} texto={mensajeGlobal.texto} />}
 
-      <div>
+      <div className="campo">
         <label htmlFor="nombre">Nombre completo:</label>
         <input
           type="text"
           id="nombre"
           name="nombre"
+          placeholder="Ej.: Ana Pérez"
           value={datos.nombre}
           onChange={manejarCambio}
           aria-invalid={!!errores.nombre}
@@ -75,12 +76,13 @@ export default function FormularioHabito() {
         {errores.nombre && <span className="error">{errores.nombre}</span>}
       </div>
 
-      <div>
+      <div className="campo">
         <label htmlFor="email">Correo electrónico:</label>
         <input
           type="email"
           id="email"
           name="email"
+          placeholder="Ej.: ana@correo.com"
           value={datos.email}
           onChange={manejarCambio}
           aria-invalid={!!errores.email}
@@ -88,12 +90,13 @@ export default function FormularioHabito() {
         {errores.email && <span className="error">{errores.email}</span>}
       </div>
 
-      <div>
+      <div className="campo campo--ancho">
         <label htmlFor="habito">Hábito:</label>
         <input
           type="text"
           id="habito"
           name="habito"
+          placeholder="Ej.: Leer 20 minutos"
           value={datos.habito}
           onChange={manejarCambio}
           aria-invalid={!!errores.habito}
@@ -101,7 +104,7 @@ export default function FormularioHabito() {
         {errores.habito && <span className="error">{errores.habito}</span>}
       </div>
 
-      <div>
+      <div className="campo">
         <label htmlFor="fecha">Fecha:</label>
         <input
           type="date"
@@ -115,7 +118,7 @@ export default function FormularioHabito() {
         {errores.fecha && <span className="error">{errores.fecha}</span>}
       </div>
 
-      <div>
+      <div className="campo">
         <label htmlFor="categoria">Categoría:</label>
         <select
           id="categoria"
@@ -134,11 +137,12 @@ export default function FormularioHabito() {
         {errores.categoria && <span className="error">{errores.categoria}</span>}
       </div>
 
-      <div>
+      <div className="campo campo--ancho">
         <label htmlFor="descripcion">Descripción:</label>
         <textarea
           id="descripcion"
           name="descripcion"
+          placeholder="Ej.: Leí antes de dormir, capítulo 3"
           value={datos.descripcion}
           onChange={manejarCambio}
           aria-invalid={!!errores.descripcion}

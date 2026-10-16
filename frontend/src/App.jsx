@@ -6,9 +6,11 @@ import Lista from "./pages/Lista";
 
 function NoEncontrada() {
   return (
-    <section>
+    <section className="no-encontrada">
+      <p className="no-encontrada__codigo">404</p>
       <h1>Página no encontrada</h1>
-      <Link to="/">Volver al inicio</Link>
+      <p>La dirección que buscas no existe o fue movida.</p>
+      <Link className="boton" to="/">Volver al inicio</Link>
     </section>
   );
 }
@@ -25,6 +27,10 @@ export default function App() {
           <Route path="*" element={<NoEncontrada />} />
         </Routes>
       </main>
+      <footer className="pie">
+        <p>HabitLog · Componente Práctico 1 · Desarrollo Web, UNEMI</p>
+        <p>Snayder, Bryan, Jenny y Steven</p>
+      </footer>
     </BrowserRouter>
   );
 }

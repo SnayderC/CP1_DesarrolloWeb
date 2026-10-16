@@ -38,33 +38,48 @@ export default function Lista() {
     setIntento((n) => n + 1);
   }
 
-  if (cargando) return <Mensaje tipo="info" texto="Cargando hábitos..." />;
-
-  if (error) {
-    return (
+  // Lo que se muestra debajo del título según el estado
+  let contenido;
+  if (cargando) {
+    contenido = <Mensaje tipo="info" texto="Cargando hábitos..." />;
+  } else if (error) {
+    contenido = (
       <Mensaje tipo="error" texto={error}>
-        {" "}
         <button className="boton" onClick={reintentar}>Reintentar</button>
       </Mensaje>
     );
-  }
-
-  if (habitos.length === 0) {
-    return (
-      <Mensaje tipo="info" texto="Aún no hay hábitos registrados. ">
+  } else if (habitos.length === 0) {
+    contenido = (
+      <Mensaje tipo="info" texto="Aún no hay hábitos registrados.">
         <Link to="/registro">Registrar el primero</Link>
       </Mensaje>
     );
-  }
-
-  return (
-    <section>
-      <h1>Hábitos registrados</h1>
+  } else {
+    contenido = (
       <div className="grid">
         {habitos.map((r) => (
           <TarjetaRegistro key={r.id} registro={r} />
         ))}
       </div>
+    );
+  }
+
+  const hayHabitos = !cargando && !error && habitos.length > 0;
+
+  return (
+    <section>
+      <div className="lista__cabecera">
+        <div>
+          <h1>Hábitos registrados</h1>
+          {hayHabitos && (
+            <p className="lista__contador">
+              {habitos.length} {habitos.length === 1 ? "hábito registrado" : "hábitos registrados"}
+            </p>
+          )}
+        </div>
+        <Link className="boton" to="/registro">Registrar hábito</Link>
+      </div>
+      {contenido}
     </section>
   );
 }
